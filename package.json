@@ -1,15 +1,16 @@
 {
   "name": "@dubizzle/cz-conventional-changelog-for-any",
-  "version": "0.0.0-semantically-released",
+  "version": "6.7.0",
   "description": "Commitizen adapter following the conventional-changelog format, forked from https://github.com/digitalroute/cz-conventional-changelog-for-jira.",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
     "test": "mocha *.test.js",
     "format": "prettier --write *.js",
-    "semantic-release": "semantic-release",
-    "add-dependencies": "npm install boxen@5 chalk commitizen lodash.map longest right-pad word-wrap && npm install -D @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier semantic-release semver",
-    "remove-dependencies": "npm uninstall boxen chalk commitizen lodash.map longest right-pad word-wrap && npm uninstall @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier semantic-release semver"
+    "release": "npx --no-install standard-version",
+    "add-dependencies": "npm add boxen@5 chalk commitizen lodash.map longest right-pad word-wrap && npm add -D @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier standard-version && npm add -O @commitlint/load",
+    "remove-dependencies": "npm remove boxen chalk commitizen lodash.map longest right-pad word-wrap && npm remove @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier standard-version && npm remove @commitlint/load",
+    "update-dependencies": "npm run remove-dependencies && npm run add-dependencies"
   },
   "homepage": "https://github.com/dubizzle/cz-conventional-changelog-for-any",
   "repository": {
@@ -40,8 +41,7 @@
     "mocha": "^9.1.3",
     "mock-require": "^3.0.3",
     "prettier": "^2.4.1",
-    "semantic-release": "^18.0.0",
-    "semver": "^7.3.5"
+    "standard-version": "^9.3.2"
   },
   "optionalDependencies": {
     "@commitlint/load": "^14.1.0"
