@@ -118,7 +118,7 @@ module.exports = function (options) {
             (options.jiraOptional ? ' (optional)' : '') +
             ':',
           when: options.jiraMode,
-          default: jiraIssue || '',
+          default: getFromOptionsOrDefaults('jiraPrefix') + jiraIssue || '',
           validate: function (jira) {
             return (
               (options.jiraOptional && !jira) ||
