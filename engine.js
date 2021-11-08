@@ -28,6 +28,7 @@ var filterSubject = function(subject) {
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
 module.exports = function(options) {
+  options.scopes = options.scopes || defaults['scopes'];
   var getFromOptionsOrDefaults = function(key) {
     return options[key] || defaults[key];
   };
@@ -68,7 +69,7 @@ module.exports = function(options) {
   const branchName = execSync('git rev-parse --abbrev-ref HEAD')
     .toString()
     .trim();
-  const jiraIssueRegex = /(?<jiraIssue>(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+)/;
+  const jiraIssueRegex = getFromOptionsOrDefaults('branchNameRegExp');
   const matchResult = branchName.match(jiraIssueRegex);
   const jiraIssue =
     matchResult && matchResult.groups && matchResult.groups.jiraIssue;
@@ -103,7 +104,7 @@ module.exports = function(options) {
         {
           type: 'list',
           name: 'type',
-          message: "Select the type of change that you're committing:",
+          message: "Select the type of change you're committing:",
           choices: choices,
           default: options.defaultType
         },
@@ -111,9 +112,9 @@ module.exports = function(options) {
           type: 'input',
           name: 'jira',
           message:
-            'Enter JIRA issue (' +
+            'Enter task ID (e.g. ' +
             getFromOptionsOrDefaults('jiraPrefix') +
-            '-12345)' +
+            'a1b2c3)' +
             (options.jiraOptional ? ' (optional)' : '') +
             ':',
           when: options.jiraMode,
@@ -121,11 +122,11 @@ module.exports = function(options) {
           validate: function(jira) {
             return (
               (options.jiraOptional && !jira) ||
-              /^(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+$/.test(jira)
+              getFromOptionsOrDefaults('taskIdRegExp').test(jira)
             );
           },
           filter: function(jira) {
-            return jira.toUpperCase();
+            return jira;
           }
         },
         {
@@ -134,8 +135,9 @@ module.exports = function(options) {
           when: !options.skipScope,
           choices: hasScopes ? options.scopes : undefined,
           message:
-            'What is the scope of this change (e.g. component or file name): ' +
-            (hasScopes ? '(select from the list)' : '(press enter to skip)'),
+            'Select the scope of this change' +
+            (hasScopes ? '' : ' (press Enter to skip)') +
+            ':',
           default: options.defaultScope,
           filter: function(value) {
             return value.trim().toLowerCase();
@@ -144,7 +146,8 @@ module.exports = function(options) {
         {
           type: 'limitedInput',
           name: 'subject',
-          message: 'Write a short, imperative tense description of the change:',
+          message:
+            'Write a short description of the change (e.g. add padding to button):',
           default: options.defaultSubject,
           maxLength: maxHeaderWidth,
           leadingLabel: answers => {
@@ -168,7 +171,7 @@ module.exports = function(options) {
           type: 'input',
           name: 'body',
           message:
-            'Provide a longer description of the change: (press enter to skip)\n',
+            'Write a long description of the change (press Enter to skip):',
           default: options.defaultBody
         },
         {
@@ -180,8 +183,7 @@ module.exports = function(options) {
         {
           type: 'confirm',
           name: 'isBreaking',
-          message:
-            'You do know that this will bump the major version, are you sure?',
+          message: 'This will bump the major version, are you sure?',
           default: false,
           when: function(answers) {
             return answers.isBreaking;
@@ -190,7 +192,7 @@ module.exports = function(options) {
         {
           type: 'input',
           name: 'breaking',
-          message: 'Describe the breaking changes:\n',
+          message: 'Describe the breaking change:',
           when: function(answers) {
             return answers.isBreaking;
           }
@@ -278,7 +280,7 @@ module.exports = function(options) {
           {
             type: 'confirm',
             name: 'doCommit',
-            message: 'Are you sure that you want to commit?'
+            message: 'Confirm commit?'
           }
         ]);
 

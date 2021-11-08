@@ -1,41 +1,30 @@
 module.exports = {
   feat: {
-    description: 'A new feature',
+    description: '✨ㅤA change that adds or removes a feature',
     title: 'Features'
   },
   fix: {
-    description: 'A bug fix',
-    title: 'Bug Fixes'
-  },
-  docs: {
-    description: 'Documentation only changes',
-    title: 'Documentation'
+    description: '🐞ㅤA change that fixes a bug',
+    title: 'Fixes'
   },
   refactor: {
-    description:
-      'A code change that neither fixes a bug nor adds a feature (formatting, performance improvement, etc)',
-    title: 'Code Refactoring'
+    description: '🔧ㅤA change that does not affect any feature or bug',
+    title: 'Refactors'
   },
   test: {
-    description: 'Adding missing tests or correcting existing tests',
+    description: '🧪ㅤA change that adds or improves a test',
     title: 'Tests'
   },
   build: {
-    description:
-      'Changes that affect the build system or external dependencies (npm, webpack, typescript)',
-    title: 'Builds'
-  },
-  ci: {
-    description:
-      'Changes to our CI configuration files and scripts (NOTE: Does not bump the version)',
-    title: 'Continuous Integrations'
+    description: '📦ㅤA change that affects the build system',
+    title: 'Build System'
   },
   chore: {
-    description: "Other changes that don't modify src or test files",
+    description: "🧹ㅤA change that doesn't modify source or test files",
     title: 'Chores'
   },
-  revert: {
-    description: 'Reverts a previous commit',
-    title: 'Reverts'
+  docs: {
+    description: '📚ㅤA change that improves the documentation',
+    title: 'Documentation'
   }
 };
