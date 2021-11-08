@@ -3,6 +3,17 @@
   "version": "0.0.3",
   "description": "Commitizen adapter following the conventional-changelog format, forked from https://github.com/digitalroute/cz-conventional-changelog-for-jira.",
   "main": "index.js",
+  "keywords": [
+    "cz",
+    "cz-cli",
+    "commit",
+    "commitizen",
+    "conventional-commit",
+    "conventional commit",
+    "conventionalchangelog",
+    "conventional changelog",
+    "conventional-changelog"
+  ],
   "scripts": {
     "commit": "git-cz",
     "test": "mocha *.test.js",
@@ -12,7 +23,7 @@
     "remove-dependencies": "npm remove boxen chalk commitizen lodash.map longest right-pad word-wrap && npm remove @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier standard-version && npm remove @commitlint/load",
     "update-dependencies": "npm run remove-dependencies && npm run add-dependencies"
   },
-  "homepage": "https://github.com/dubizzle/cz-conventional-changelog-for-any",
+  "homepage": "https://dubizzle.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/dubizzle/cz-conventional-changelog-for-any.git"
