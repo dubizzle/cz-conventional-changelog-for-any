@@ -55,21 +55,15 @@ const options = {
     defaults.jiraOptional
   ),
   jiraPrefix:
-    process.env.CZ_JIRA_PREFIX ||
-    config.jiraPrefix ||
-    defaults.jiraPrefix,
+    process.env.CZ_JIRA_PREFIX || config.jiraPrefix || defaults.jiraPrefix,
   jiraLocation:
     process.env.CZ_JIRA_LOCATION ||
     config.jiraLocation ||
     defaults.jiraLocation,
   jiraPrepend:
-    process.env.CZ_JIRA_PREPEND ||
-    config.jiraPrepend ||
-    defaults.jiraPrepend,
+    process.env.CZ_JIRA_PREPEND || config.jiraPrepend || defaults.jiraPrepend,
   jiraAppend:
-    process.env.CZ_JIRA_APPEND ||
-    config.jiraAppend ||
-    defaults.jiraAppend
+    process.env.CZ_JIRA_APPEND || config.jiraAppend || defaults.jiraAppend
 };
 
 (function(options) {

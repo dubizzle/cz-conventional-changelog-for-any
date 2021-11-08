@@ -31,8 +31,14 @@ module.exports = function(options) {
   var getFromOptionsOrDefaults = function(key) {
     return options[key] || defaults[key];
   };
-  var getJiraIssueLocation = function(location, type, scope, jiraWithDecorators, subject) {
-    switch(location) {
+  var getJiraIssueLocation = function(
+    location,
+    type,
+    scope,
+    jiraWithDecorators,
+    subject
+  ) {
+    switch (location) {
       case 'pre-type':
         return jiraWithDecorators + type + scope + ': ' + subject;
         break;
@@ -59,7 +65,9 @@ module.exports = function(options) {
   const minHeaderWidth = getFromOptionsOrDefaults('minHeaderWidth');
   const maxHeaderWidth = getFromOptionsOrDefaults('maxHeaderWidth');
 
-  const branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+  const branchName = execSync('git rev-parse --abbrev-ref HEAD')
+    .toString()
+    .trim();
   const jiraIssueRegex = /(?<jiraIssue>(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+)/;
   const matchResult = branchName.match(jiraIssueRegex);
   const jiraIssue =
@@ -172,7 +180,8 @@ module.exports = function(options) {
         {
           type: 'confirm',
           name: 'isBreaking',
-          message: 'You do know that this will bump the major version, are you sure?',
+          message:
+            'You do know that this will bump the major version, are you sure?',
           default: false,
           when: function(answers) {
             return answers.isBreaking;
@@ -228,12 +237,20 @@ module.exports = function(options) {
         var scope = answers.scope ? '(' + answers.scope + ')' : '';
 
         // Get Jira issue prepend and append decorators
-        var prepend = options.jiraPrepend || ''
-        var append = options.jiraAppend || ''
-        var jiraWithDecorators = answers.jira ? prepend + answers.jira + append + ' ': '';
+        var prepend = options.jiraPrepend || '';
+        var append = options.jiraAppend || '';
+        var jiraWithDecorators = answers.jira
+          ? prepend + answers.jira + append + ' '
+          : '';
 
         // Hard limit this line in the validate
-        const head = getJiraIssueLocation(options.jiraLocation, answers.type, scope, jiraWithDecorators, answers.subject);
+        const head = getJiraIssueLocation(
+          options.jiraLocation,
+          answers.type,
+          scope,
+          jiraWithDecorators,
+          answers.subject
+        );
 
         // Wrap these lines at options.maxLineWidth characters
         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
