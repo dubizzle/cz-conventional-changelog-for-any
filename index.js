@@ -66,10 +66,10 @@ const options = {
     process.env.CZ_JIRA_APPEND || config.jiraAppend || defaults.jiraAppend
 };
 
-(function(options) {
+(function (options) {
   try {
     var commitlintLoad = require('@commitlint/load');
-    commitlintLoad().then(function(clConfig) {
+    commitlintLoad().then(function (clConfig) {
       if (clConfig.rules) {
         var maxHeaderLengthRule = clConfig.rules['header-max-length'];
         if (

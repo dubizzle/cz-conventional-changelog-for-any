@@ -10,13 +10,13 @@ const boxen = require('boxen');
 
 var defaults = require('./defaults');
 const LimitedInputPrompt = require('./LimitedInputPrompt');
-var filter = function(array) {
-  return array.filter(function(x) {
+var filter = function (array) {
+  return array.filter(function (x) {
     return x;
   });
 };
 
-var filterSubject = function(subject) {
+var filterSubject = function (subject) {
   subject = subject.trim();
   while (subject.endsWith('.')) {
     subject = subject.slice(0, subject.length - 1);
@@ -27,12 +27,12 @@ var filterSubject = function(subject) {
 // This can be any kind of SystemJS compatible module.
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
-module.exports = function(options) {
+module.exports = function (options) {
   options.scopes = options.scopes || defaults['scopes'];
-  var getFromOptionsOrDefaults = function(key) {
+  var getFromOptionsOrDefaults = function (key) {
     return options[key] || defaults[key];
   };
-  var getJiraIssueLocation = function(
+  var getJiraIssueLocation = function (
     location,
     type,
     scope,
@@ -56,7 +56,7 @@ module.exports = function(options) {
   var types = getFromOptionsOrDefaults('types');
 
   var length = longest(Object.keys(types)).length + 1;
-  var choices = map(types, function(type, key) {
+  var choices = map(types, function (type, key) {
     return {
       name: rightPad(key + ':', length) + ' ' + type.description,
       value: key
@@ -90,7 +90,7 @@ module.exports = function(options) {
     //
     // By default, we'll de-indent your commit
     // template and will keep empty lines.
-    prompter: function(cz, commit, testMode) {
+    prompter: function (cz, commit, testMode) {
       cz.registerPrompt('limitedInput', LimitedInputPrompt);
 
       // Let's ask some questions of the user
@@ -119,13 +119,13 @@ module.exports = function(options) {
             ':',
           when: options.jiraMode,
           default: jiraIssue || '',
-          validate: function(jira) {
+          validate: function (jira) {
             return (
               (options.jiraOptional && !jira) ||
               getFromOptionsOrDefaults('taskIdRegExp').test(jira)
             );
           },
-          filter: function(jira) {
+          filter: function (jira) {
             return jira;
           }
         },
@@ -139,7 +139,7 @@ module.exports = function(options) {
             (hasScopes ? '' : ' (press Enter to skip)') +
             ':',
           default: options.defaultScope,
-          filter: function(value) {
+          filter: function (value) {
             return value.trim().toLowerCase();
           }
         },
@@ -150,7 +150,7 @@ module.exports = function(options) {
             'Write a short description of the change (e.g. add padding to button):',
           default: options.defaultSubject,
           maxLength: maxHeaderWidth,
-          leadingLabel: answers => {
+          leadingLabel: (answers) => {
             const jira = answers.jira ? ` ${answers.jira}` : '';
             let scope = '';
 
@@ -160,10 +160,10 @@ module.exports = function(options) {
 
             return `${answers.type}${scope}:${jira}`;
           },
-          validate: input =>
+          validate: (input) =>
             input.length >= minHeaderWidth ||
             `The subject must have at least ${minHeaderWidth} characters`,
-          filter: function(subject) {
+          filter: function (subject) {
             return filterSubject(subject);
           }
         },
@@ -185,7 +185,7 @@ module.exports = function(options) {
           name: 'isBreaking',
           message: 'This will bump the major version, are you sure?',
           default: false,
-          when: function(answers) {
+          when: function (answers) {
             return answers.isBreaking;
           }
         },
@@ -193,7 +193,7 @@ module.exports = function(options) {
           type: 'input',
           name: 'breaking',
           message: 'Describe the breaking change:',
-          when: function(answers) {
+          when: function (answers) {
             return answers.isBreaking;
           }
         },
@@ -211,7 +211,7 @@ module.exports = function(options) {
           default: '-',
           message:
             'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n',
-          when: function(answers) {
+          when: function (answers) {
             return (
               answers.isIssueAffected && !answers.body && !answers.breakingBody
             );
@@ -221,12 +221,12 @@ module.exports = function(options) {
           type: 'input',
           name: 'issues',
           message: 'Add issue references (e.g. "fix #123", "re #123".):\n',
-          when: function(answers) {
+          when: function (answers) {
             return answers.isIssueAffected;
           },
           default: options.defaultIssues ? options.defaultIssues : undefined
         }
-      ]).then(async function(answers) {
+      ]).then(async function (answers) {
         var wrapOptions = {
           trim: true,
           cut: false,
