@@ -55,27 +55,21 @@ const options = {
     defaults.jiraOptional
   ),
   jiraPrefix:
-    process.env.CZ_JIRA_PREFIX ||
-    config.jiraPrefix ||
-    defaults.jiraPrefix,
+    process.env.CZ_JIRA_PREFIX || config.jiraPrefix || defaults.jiraPrefix,
   jiraLocation:
     process.env.CZ_JIRA_LOCATION ||
     config.jiraLocation ||
     defaults.jiraLocation,
   jiraPrepend:
-    process.env.CZ_JIRA_PREPEND ||
-    config.jiraPrepend ||
-    defaults.jiraPrepend,
+    process.env.CZ_JIRA_PREPEND || config.jiraPrepend || defaults.jiraPrepend,
   jiraAppend:
-    process.env.CZ_JIRA_APPEND ||
-    config.jiraAppend ||
-    defaults.jiraAppend
+    process.env.CZ_JIRA_APPEND || config.jiraAppend || defaults.jiraAppend
 };
 
-(function(options) {
+(function (options) {
   try {
     var commitlintLoad = require('@commitlint/load');
-    commitlintLoad().then(function(clConfig) {
+    commitlintLoad().then(function (clConfig) {
       if (clConfig.rules) {
         var maxHeaderLengthRule = clConfig.rules['header-max-length'];
         if (

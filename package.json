@@ -1,18 +1,21 @@
 {
-  "name": "@digitalroute/cz-conventional-changelog-for-jira",
-  "version": "0.0.0-semantically-released",
-  "description": "Commitizen adapter following the conventional-changelog format and also asking for JIRA issue.",
+  "name": "@dubizzle/cz-conventional-changelog-for-any",
+  "version": "0.0.2",
+  "description": "Commitizen adapter following the conventional-changelog format, forked from https://github.com/digitalroute/cz-conventional-changelog-for-jira.",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
     "test": "mocha *.test.js",
     "format": "prettier --write *.js",
-    "semantic-release": "semantic-release"
+    "release": "npx --no-install standard-version",
+    "add-dependencies": "npm add boxen@5 chalk commitizen lodash.map longest right-pad word-wrap && npm add -D @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier standard-version && npm add -O @commitlint/load",
+    "remove-dependencies": "npm remove boxen chalk commitizen lodash.map longest right-pad word-wrap && npm remove @types/chai @types/mocha chai cosmiconfig cz-conventional-changelog mocha mock-require prettier standard-version && npm remove @commitlint/load",
+    "update-dependencies": "npm run remove-dependencies && npm run add-dependencies"
   },
-  "homepage": "https://github.com/digitalroute/cz-conventional-changelog-for-jira",
+  "homepage": "https://github.com/dubizzle/cz-conventional-changelog-for-any",
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalroute/cz-conventional-changelog-for-jira.git"
+    "url": "https://github.com/dubizzle/cz-conventional-changelog-for-any.git"
   },
   "engineStrict": true,
   "engines": {
@@ -21,28 +24,27 @@
   "author": "Marcus Johansson <polarn@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "boxen": "^5.0.0",
-    "chalk": "^2.4.1",
+    "boxen": "^5.1.2",
+    "chalk": "^4.1.2",
     "commitizen": "^4.2.4",
-    "lodash.map": "^4.5.1",
+    "lodash.map": "^4.6.0",
     "longest": "^2.0.1",
     "right-pad": "^1.0.1",
-    "word-wrap": "^1.0.3"
+    "word-wrap": "^1.2.3"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.7",
-    "chai": "^4.2.0",
-    "cosmiconfig": "^5.2.1",
-    "cz-conventional-changelog": "^3.1.0",
-    "mocha": "^6.2.0",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "cosmiconfig": "^7.0.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "mocha": "^9.1.3",
     "mock-require": "^3.0.3",
-    "prettier": "^1.15.3",
-    "semantic-release": "^17.4.3",
-    "semver": "^6.2.0"
+    "prettier": "^2.4.1",
+    "standard-version": "^9.3.2"
   },
   "optionalDependencies": {
-    "@commitlint/load": ">6.1.1"
+    "@commitlint/load": "^14.1.0"
   },
   "config": {
     "commitizen": {
