@@ -1,6 +1,6 @@
 {
   "name": "@dubizzle/cz-conventional-changelog-for-any",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Commitizen adapter following the conventional-changelog format, forked from https://github.com/digitalroute/cz-conventional-changelog-for-jira.",
   "main": "index.js",
   "scripts": {
